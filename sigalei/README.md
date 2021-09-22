@@ -1,5 +1,5 @@
 # Crawler_com_Framework_Scrapy_Sigalei
-### Crawler no framwork Scrapy que retorna o md5 dos PDFs de Inteiro Teor dos últimos 3 dias do site da câmara e grava em um banco SQLite
+### Crawler no framework Scrapy que retorna o md5 dos PDFs de Inteiro Teor dos últimos 3 dias do site da câmara e grava em um banco SQLite
 
 ***
 ## Explicação do Projeto
@@ -42,7 +42,7 @@ DIGITE A PROPOSICAO (PL. PLP ou PEC): <b>INSIRA AQUI A PROPOSICAO QUE DESEJA PES
 ***
 ## Explicando o Crawler:
 
-O *spider* __sigalei_spider__ foi desenvoldo para fazer os *scrapes* dos dados solicitados das *PLs, PLPs ou PECs*.
+O *spider* __sigalei_spider__ foi desenvolvido para fazer os *scrapes* dos dados solicitados das *PLs, PLPs ou PECs*.
 
 ## :arrow_forward:  Arquivo - sigalei_spider.py
 
@@ -93,13 +93,13 @@ Passa como parâmetros do *headers*:
             callback=self.update_query
         )
 ```
-2) Com a resposta da __API__ são estraídos → quantidade total de poposições, quantidade por páginas e quantidade de páginas.
+2) Com a resposta da __API__ são extraídos → quantidade total de proposições, quantidade por páginas e quantidade de páginas.
 
 ## * update_query()
 
 Um novo acesso à __API__ só que dessa vez iterando passando cada página como parâmetro no *payload*.
 <br></br>
-É feito um __yield__ *scrapy.Request* onde são passados → url, 'POST', payload, header e dessa vez além proposição buscada como meta, também é paassado o nº iterado, e um callback chamando o método seguinte *sigalei_crawler()*.
+É feito um __yield__ *scrapy.Request* onde são passados → url, 'POST', payload, header e dessa vez além proposição buscada como meta, também é passado o nº iterado, e um callback chamando o método seguinte *sigalei_crawler()*.
    
 ```
     def update_query(self, response):
@@ -128,13 +128,13 @@ Um novo acesso à __API__ só que dessa vez iterando passando cada página como 
             n_i += 1
 ```
 ***
-3) Com a resposta para cada página é feita uma comparação entre a data pequisada (*data do dia - 3*) e a última data da proposição de cada página.
+3) Com a resposta para cada página é feita uma comparação entre a data pesquisada (*data do dia - 3*) e a última data da proposição de cada página.
 
 ## * sigalei_crawler()
 
-Caso a última data da página seja menor que a data pequisada (*data do dia - 3*) o programa é interrompido
+Caso a última data da página seja menor que a data pesquisada (*data do dia - 3*) o programa é interrompido
 <br></br>
-Para cada pagina iterada é feito o *scrape* da __*data da apresentação da proposição*__, do __*título*__(ou nome)__*da proposição*__ e __*id da proposição*__. 
+Para cada página iterada é feito o *scrape* da __*data da apresentação da proposição*__, do __*título*__(ou nome)__*da proposição*__ e __*id da proposição*__. 
 <br></br>
 O id da proposição é passado no link de cada proposição `  f'https://www.camara.leg.br/proposicoesWeb/fichadetramitacao?idProposicao={id_preposicao}'  `
 <br></br>
@@ -185,7 +185,7 @@ O download do __PDF de Inteiro Teor__ é feito em um arquivo temporário e é ex
 ***
 ## :arrow_forward:  Arquivo - pipelines.py
 
-É criada uam tabela em *SQLite* onde são gravados os dados
+É criada uma tabela em *SQLite* onde são gravados os dados
 
 ## * open_spider()
 
