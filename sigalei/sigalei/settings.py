@@ -1,4 +1,7 @@
+import json
+
 from fake_useragent import UserAgent
+import base64
 # Scrapy settings for sigalei project
 #
 # For simplicity, this file contains only settings considered important or
@@ -64,8 +67,23 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+# ITEM_PIPELINES = {
+#    'sigalei.pipelines.SQLlitePipeline': 300
+# }
+
+BQ_path = 'E:/ESTUDO DATAWAREHOUSE/BigQuery_KEY/tijucaanalytica-05b22616f324.json'
+
+with open(BQ_path) as jsonfile:
+    data = json.load(jsonfile)
+    datastr = json.dumps(data)
+    encoded = base64.encodebytes(datastr.encode())
+
+BIGQUERY_DATASET = "sigalei"
+BIGQUERY_TABLE = "proposicoes_3_dias"
+BIGQUERY_SERVICE_ACCOUNT = encoded
 ITEM_PIPELINES = {
-   'sigalei.pipelines.SQLlitePipeline': 300
+    "bigquerypipeline.pipelines.BigQueryPipeline": 301,
+    'sigalei.pipelines.SQLlitePipeline': 300
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

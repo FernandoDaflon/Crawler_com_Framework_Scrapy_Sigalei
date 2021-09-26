@@ -34,9 +34,12 @@ class SQLlitePipeline(object):
             pass
 
     def close_spider(self, spider):
-        salva_pdf = 'salva_pdf'
-        path = f'{salva_pdf}.pdf'
-        os.remove(path)
+        try:
+            salva_pdf = 'salva_pdf'
+            path = f'{salva_pdf}.pdf'
+            os.remove(path)
+        except:
+            pass
         self.connection.close()
 
     def process_item(self, item, spider):
